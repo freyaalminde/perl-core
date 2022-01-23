@@ -19,6 +19,7 @@ xs_init(pTHX)
     newXS("DynaLoader::boot_DynaLoader", boot_DynaLoader, file);
 }
 
+// TODO: allow multiple interpreters
 static PerlInterpreter *my_perl = NULL;
 
 void swiftperl_sys_init() {

@@ -1,24 +1,11 @@
-swift-perl
-==========
+# PerlCore
 
-Run [Perl] from [Swift].
+Evaluate Perl programs from within an app, and support Perl scripting of your app.
 
-[Perl]: http://www.perl.org/
-[Swift]: https://developer.apple.com/swift/
+## Overview
 
-Prerequisites
--------------
+The PerlCore framework provides the ability to evaluate Perl programs from within Swift-based apps. You can use also use PerlCore to insert custom objects into the Perl environment.
 
-You need Yosemite DP3 and Xcode-beta3.
+## Acknowledgements
 
-````shell
-% git clone https://github.com/dankogai/swift-perl.git
-% open swift-perl/swiftperl.xcodeproj
-````
-
-And edit main.swift to your liking.
-
-Caution
--------
-
-* The perl embedded is the one on the system, which is 5.16.3 as of Yosemite DP3
+Based on [swift-perl](https://github.com/dankogai/swift-perl) by Dan Kogai.
