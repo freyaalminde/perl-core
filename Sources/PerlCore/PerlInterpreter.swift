@@ -1,11 +1,3 @@
-//
-//  swiftperl.swift
-//  swiftperl
-//
-//  Created by Dan Kogai on 7/12/14.
-//  Copyright (c) 2014 Dan Kogai. All rights reserved.
-//
-
 class PerlString: CustomStringConvertible {
   let sv: UnsafeMutableRawPointer
   init (_ sv: UnsafeMutableRawPointer) { self.sv = sv }

@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9E7BED9719705BCE00F62623 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7BED9619705BCE00F62623 /* main.swift */; };
-		9E7BED9F19705F3000F62623 /* swiftperl.c in Sources */ = {isa = PBXBuildFile; fileRef = 9E7BED9E19705F3000F62623 /* swiftperl.c */; };
-		9EFB92001971566200938A72 /* swiftperl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFB91FF1971566200938A72 /* swiftperl.swift */; };
+		3BD773BE279CE20B00C90861 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD773B6279CE19300C90861 /* main.swift */; };
+		3BD773BF279CE21500C90861 /* PerlCore.c in Sources */ = {isa = PBXBuildFile; fileRef = 3BD773BD279CE19C00C90861 /* PerlCore.c */; };
+		3BD773C0279CE21700C90861 /* PerlInterpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD773BB279CE19C00C90861 /* PerlInterpreter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,12 +25,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		3BD773AF279CDC9900C90861 /* swiftperl */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = swiftperl; sourceTree = BUILT_PRODUCTS_DIR; };
+		3BD773AF279CDC9900C90861 /* perl-core */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "perl-core"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BD773B0279CDE2200C90861 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		9E7BED9619705BCE00F62623 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		9E7BED9D19705F2F00F62623 /* swiftperl-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "swiftperl-Bridging-Header.h"; sourceTree = "<group>"; };
-		9E7BED9E19705F3000F62623 /* swiftperl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = swiftperl.c; sourceTree = "<group>"; };
-		9EFB91FF1971566200938A72 /* swiftperl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = swiftperl.swift; sourceTree = "<group>"; };
+		3BD773B1279CE16100C90861 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		3BD773B6279CE19300C90861 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		3BD773BA279CE19C00C90861 /* PerlCoreBridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PerlCoreBridgingHeader.h; sourceTree = "<group>"; };
+		3BD773BB279CE19C00C90861 /* PerlInterpreter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerlInterpreter.swift; sourceTree = "<group>"; };
+		3BD773BD279CE19C00C90861 /* PerlCore.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = PerlCore.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,32 +45,57 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3BD773B2279CE18500C90861 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				3BD773B9279CE19B00C90861 /* PerlCore */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		3BD773B3279CE18B00C90861 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				3BD773B4279CE19300C90861 /* PerlCoreTests */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		3BD773B4279CE19300C90861 /* PerlCoreTests */ = {
+			isa = PBXGroup;
+			children = (
+				3BD773B6279CE19300C90861 /* main.swift */,
+			);
+			path = PerlCoreTests;
+			sourceTree = "<group>";
+		};
+		3BD773B9279CE19B00C90861 /* PerlCore */ = {
+			isa = PBXGroup;
+			children = (
+				3BD773BB279CE19C00C90861 /* PerlInterpreter.swift */,
+				3BD773BA279CE19C00C90861 /* PerlCoreBridgingHeader.h */,
+				3BD773BD279CE19C00C90861 /* PerlCore.c */,
+			);
+			path = PerlCore;
+			sourceTree = "<group>";
+		};
 		9E7BED8A19705BCE00F62623 = {
 			isa = PBXGroup;
 			children = (
+				3BD773B2279CE18500C90861 /* Sources */,
+				3BD773B3279CE18B00C90861 /* Tests */,
+				3BD773B1279CE16100C90861 /* Package.swift */,
 				3BD773B0279CDE2200C90861 /* README.md */,
-				9E7BED9519705BCE00F62623 /* swiftperl */,
-				3BD773AF279CDC9900C90861 /* swiftperl */,
+				3BD773AF279CDC9900C90861 /* perl-core */,
 			);
-			sourceTree = "<group>";
-		};
-		9E7BED9519705BCE00F62623 /* swiftperl */ = {
-			isa = PBXGroup;
-			children = (
-				9E7BED9619705BCE00F62623 /* main.swift */,
-				9EFB91FF1971566200938A72 /* swiftperl.swift */,
-				9E7BED9D19705F2F00F62623 /* swiftperl-Bridging-Header.h */,
-				9E7BED9E19705F3000F62623 /* swiftperl.c */,
-			);
-			path = swiftperl;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		9E7BED9219705BCE00F62623 /* swiftperl */ = {
+		9E7BED9219705BCE00F62623 /* perl-core */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9E7BED9A19705BCE00F62623 /* Build configuration list for PBXNativeTarget "swiftperl" */;
+			buildConfigurationList = 9E7BED9A19705BCE00F62623 /* Build configuration list for PBXNativeTarget "perl-core" */;
 			buildPhases = (
 				9E7BED8F19705BCE00F62623 /* Sources */,
 				9E7BED9019705BCE00F62623 /* Frameworks */,
@@ -79,9 +105,9 @@
 			);
 			dependencies = (
 			);
-			name = swiftperl;
+			name = "perl-core";
 			productName = swiftperl;
-			productReference = 3BD773AF279CDC9900C90861 /* swiftperl */;
+			productReference = 3BD773AF279CDC9900C90861 /* perl-core */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -98,7 +124,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 9E7BED8E19705BCE00F62623 /* Build configuration list for PBXProject "swiftperl" */;
+			buildConfigurationList = 9E7BED8E19705BCE00F62623 /* Build configuration list for PBXProject "perl-core" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -111,7 +137,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9E7BED9219705BCE00F62623 /* swiftperl */,
+				9E7BED9219705BCE00F62623 /* perl-core */,
 			);
 		};
 /* End PBXProject section */
@@ -121,9 +147,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9E7BED9F19705F3000F62623 /* swiftperl.c in Sources */,
-				9EFB92001971566200938A72 /* swiftperl.swift in Sources */,
-				9E7BED9719705BCE00F62623 /* main.swift in Sources */,
+				3BD773BE279CE20B00C90861 /* main.swift in Sources */,
+				3BD773BF279CE21500C90861 /* PerlCore.c in Sources */,
+				3BD773C0279CE21700C90861 /* PerlInterpreter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,7 +303,7 @@
 				OTHER_LDFLAGS = "-lperl";
 				OTHER_LIBTOOLFLAGS = "-lperl";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "swiftperl/swiftperl-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = Sources/PerlCore/PerlCoreBridgingHeader.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -324,14 +350,14 @@
 				OTHER_LDFLAGS = "-lperl";
 				OTHER_LIBTOOLFLAGS = "-lperl";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "swiftperl/swiftperl-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = Sources/PerlCore/PerlCoreBridgingHeader.h;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9E7BED8E19705BCE00F62623 /* Build configuration list for PBXProject "swiftperl" */ = {
+		9E7BED8E19705BCE00F62623 /* Build configuration list for PBXProject "perl-core" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9E7BED9819705BCE00F62623 /* Debug */,
@@ -340,7 +366,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9E7BED9A19705BCE00F62623 /* Build configuration list for PBXNativeTarget "swiftperl" */ = {
+		9E7BED9A19705BCE00F62623 /* Build configuration list for PBXNativeTarget "perl-core" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9E7BED9B19705BCE00F62623 /* Debug */,
