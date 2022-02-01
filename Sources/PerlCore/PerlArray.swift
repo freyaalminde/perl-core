@@ -1,5 +1,6 @@
 import CPerlCore
 
+/// A Perl array.
 public class PerlArray: CustomStringConvertible {
   let av: UnsafeMutableRawPointer
   init (_ sv: UnsafeMutableRawPointer){ self.av = sv }

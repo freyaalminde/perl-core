@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.5
 import PackageDescription
 
 let package = Package(
@@ -16,7 +16,6 @@ let package = Package(
     .target(
       name: "PerlCore",
       dependencies: ["CPerlCore"],
-      exclude: ["Documentation.docc"],
       linkerSettings: [
         .unsafeFlags([
           // "-I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Perl/5.30/darwin-thread-multi-2level/CORE",

@@ -1,9 +1,12 @@
 import CPerlCore
 
 /// A Perl execution environment.
+@available(macOS 10.10, *)
 public class PerlInterpreter {
   var debug: Bool
   
+  /// Initializes a new Perl context.
+  /// - returns: A new Perl context.
   public init(debug: Bool = false) {
     self.debug = debug
     swiftperl_init()
@@ -19,30 +22,41 @@ public class PerlInterpreter {
     swiftperl_deinit(); swiftperl_init()
   }
   
+  /// Initialize the Perl environment.
   public class func initialize() { swiftperl_sys_init() }
+  
+  /// Deinitialize the Perl environment.
   public class func deinitialize() { swiftperl_sys_term() }
   
   var preamble = "use v5.30; no strict;"
   
-  @discardableResult public func eval(_ script: String) -> PerlString {
+  /// Executes the specified Perl code.
+  @discardableResult
+  public func evaluateScript(_ script: String) -> PerlString {
     (preamble+script).withCString {
       PerlString(swiftperl_eval_pv($0, 0))
     }
   }
   
-  public var evalok: Bool {
+  /// Whether the latest evaluation succeeded.
+  public var evaluationSucceeded: Bool {
     swiftperl_err() == 0
   }
   
-  public var errstr: String {
+  /// A Perl exception thrown in evaluation of the script.
+  ///
+  /// PerlCore assigns any uncaught exception to this property, so you can check this property’s value to find uncaught exceptions arising from Perl function calls.
+  public var exception: String {
     String(validatingUTF8: swiftperl_errstr())!
   }
   
+  @discardableResult
   public func use(_ name:String) -> PerlString {
-    eval("use \(name);")
+    evaluateScript("use \(name);")
   }
   
-  public func use<T>(_ name:String, _ args:T...)->PerlString {
+  @discardableResult
+  public func use<T>(_ name:String, _ args: T...) -> PerlString {
     use(name + " " + args.map{"'\($0)'"}.joined(separator: ","))
   }
   

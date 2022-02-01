@@ -1,5 +1,6 @@
 import CPerlCore
 
+/// A Perl hash.
 public class PerlHash: CustomStringConvertible {
   let hv: UnsafeMutableRawPointer
   init (_ hv: UnsafeMutableRawPointer) { self.hv = hv }

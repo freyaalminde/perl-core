@@ -3,14 +3,20 @@ import PerlCore
 
 final class PerlCoreTests: XCTestCase {
   override class func setUp() { PerlInterpreter.initialize() }
-//  override class func tearDown() { PerlInterpreter.deinitialize() }
-  
+  override class func tearDown() { PerlInterpreter.deinitialize() }
+
+  func testReverse() {
+    let perl = PerlInterpreter()
+    let result = perl.evaluateScript("reverse q(rekcaH lreP rehtonA tsuJ)")
+    XCTAssertEqual(result.asString, "Just Another Perl Hacker")
+  }
+
   func run(_ script: String) {
     let perl = PerlInterpreter(debug: true)
-    let result = perl.eval(script)
+    let result = perl.evaluateScript(script)
     print("eval \"\(script)\" = \(result)")
-    if !perl.evalok {
-      print(" err:   \(perl.errstr)")
+    if !perl.evaluationSucceeded {
+      print(" err:   \(perl.exception)")
     } else {
       print("  !!:   \(result.asBool)")
       print("  int:  \(result.asInt)")
@@ -31,27 +37,27 @@ final class PerlCoreTests: XCTestCase {
 
     let perl = PerlInterpreter()
 
-    perl.eval("our $swift = q(0.0 but rocks)")
+    perl.evaluateScript("our $swift = q(0.0 but rocks)")
     print(perl.`$`("swift") as Any)
     print(perl.`$`("swift")?.asBool as Any)
     print(perl.`$`("swift")?.asDouble as Any)
     print(perl.`$`("objC") as Any)
     // scalar
-    perl.eval("our $scalar")
+    perl.evaluateScript("our $scalar")
     let scalar = perl.sv("scalar")!
     print(scalar.defined)
     scalar.asBool = !scalar.asBool
-    perl.eval("say $scalar")
+    perl.evaluateScript("say $scalar")
     scalar.asInt *= 42
-    perl.eval("say $scalar")
+    perl.evaluateScript("say $scalar")
     scalar.asDouble += 0.195
-    perl.eval("say $scalar")
+    perl.evaluateScript("say $scalar")
     scalar.asString += "km"
-    perl.eval("say $scalar")
+    perl.evaluateScript("say $scalar")
     scalar.undef()
-    perl.eval("say $scalar")
+    perl.evaluateScript("say $scalar")
     // array
-    perl.eval("our @array")
+    perl.evaluateScript("our @array")
     let array = perl.av("array")!
     array[0].asInt = 0
     array[3].asInt = 3
@@ -59,7 +65,7 @@ final class PerlCoreTests: XCTestCase {
     print(array.delete(0) as Any)
     print(perl.av("array") as Any)
     // hash
-    perl.eval("our %hash")
+    perl.evaluateScript("our %hash")
     let hash = perl.hv("hash")!
     hash["zero"].asInt = 0
     hash["one"].asInt = 1
@@ -67,20 +73,20 @@ final class PerlCoreTests: XCTestCase {
     print(hash.delete("one") as Any)
     print(perl.hv("hash") as Any)
     /// reference
-    perl.eval("our $ref = 0")
+    perl.evaluateScript("our $ref = 0")
     print(perl.`$`("ref")!.refType)
-    perl.eval("$ref = \\0")
+    perl.evaluateScript("$ref = \\0")
     print(perl.`$`("ref")!.refType)
     print(perl.`$`("ref")!.derefScalar() as Any)
-    perl.eval("$ref = [0]")
+    perl.evaluateScript("$ref = [0]")
     print(perl.`$`("ref")!.refType)
     print(perl.`$`("ref")!.derefArray() as Any)
-    perl.eval("$ref = {zero=>0}")
+    perl.evaluateScript("$ref = {zero=>0}")
     print(perl.`$`("ref")!.refType)
     print(perl.`$`("ref")!.derefHash() as Any)
     /// use
     //pl.use("Scalar::Util", "dualvar")
-    let dv = perl.eval("dualvar 42, q(The Answer)")
+    let dv = perl.evaluateScript("dualvar 42, q(The Answer)")
     print(dv.asInt)
     print(dv.asString)
   }
