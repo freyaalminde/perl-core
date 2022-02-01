@@ -19,7 +19,8 @@ let package = Package(
       exclude: ["Documentation.docc"],
       linkerSettings: [
         .unsafeFlags([
-          "-I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Perl/5.30/darwin-thread-multi-2level/CORE",
+          // "-I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Perl/5.30/darwin-thread-multi-2level/CORE",
+          // "-I/System/Library/Perl/5.30/darwin-thread-multi-2level/CORE",
           "-L/System/Library/Perl/5.30/darwin-thread-multi-2level/CORE",
           "-arch x86_64",
           "-arch i386",

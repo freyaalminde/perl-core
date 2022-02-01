@@ -2,13 +2,13 @@ import XCTest
 import PerlCore
 
 final class PerlCoreTests: XCTestCase {
-//  override class func setUp() { PerlInterpreter.initialize() }
+  override class func setUp() { PerlInterpreter.initialize() }
 //  override class func tearDown() { PerlInterpreter.deinitialize() }
   
   func run(_ script: String) {
     let perl = PerlInterpreter(debug: true)
     let result = perl.eval(script)
-    print("eval \"\(script)\"")
+    print("eval \"\(script)\" = \(result)")
     if !perl.evalok {
       print(" err:   \(perl.errstr)")
     } else {
@@ -20,9 +20,6 @@ final class PerlCoreTests: XCTestCase {
   }
 
   func test() throws {
-    PerlInterpreter.initialize()
-    
-    run("sub{ @_ }")
     run("reverse q(rekcaH lreP rehtonA tsuJ)")
     run("atan2(0,-1)")
     run("q{0 but true}")
@@ -30,6 +27,7 @@ final class PerlCoreTests: XCTestCase {
     run("my %h = (zero => 0, one => 1)")
     run("qr/\\A(.*)\\z/msx")
     run("phpinfo()")
+    run("sub{ @_ }")
 
     let perl = PerlInterpreter()
 
