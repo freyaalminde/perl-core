@@ -22,7 +22,7 @@ public class PerlInterpreter {
   public class func initialize() { swiftperl_sys_init() }
   public class func deinitialize() { swiftperl_sys_term() }
   
-  var preamble = "use v5.18; no strict;"
+  var preamble = "use v5.30; no strict;"
   
   @discardableResult public func eval(_ script: String) -> PerlString {
     (preamble+script).withCString {

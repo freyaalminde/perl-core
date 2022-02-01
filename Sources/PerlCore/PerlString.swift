@@ -27,16 +27,16 @@ public class PerlString: CustomStringConvertible {
   }
   public var description: String { asString }
   // References
-  var refType: String {
+  public var refType: String {
     String(validatingUTF8: swiftperl_reftype(sv))!
   }
-  func derefScalar() -> PerlString? {
+  public func derefScalar() -> PerlString? {
     refType == "SCALAR" ? PerlString(swiftperl_deref(sv)) : nil
   }
-  func derefArray() -> PerlArray? {
+  public func derefArray() -> PerlArray? {
     refType == "ARRAY" ? PerlArray(swiftperl_deref(sv)) : nil
   }
-  func derefHash() -> PerlHash? {
+  public func derefHash() -> PerlHash? {
     refType == "HASH" ? PerlHash(swiftperl_deref(sv)) : nil
   }
 }
