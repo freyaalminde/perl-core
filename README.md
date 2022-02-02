@@ -26,10 +26,10 @@ The PerlCore framework provides the ability to evaluate Perl code from within Sw
 ```swift
 PerlInterpreter.initialize()
 let interpreter = PerlInterpreter()
-interpreter.scalarValue("greeting", true)!.asString = "Hello, "
-let script = "$greeting . reverse q(rekcaH lreP rehtonA tsuJ)"
+interpreter.`$`("prefix", true)!.asString = "Just "
+let script = "$prefix . reverse q(rekcaH lreP rehtonA)"
 let result = interpreter.evaluateScript(script)
-assert(result.asString == "Hello, Just Another Perl Hacker")
+assert(result.asString == "Just Another Perl Hacker")
 ```
 
 
@@ -37,10 +37,10 @@ assert(result.asString == "Hello, Just Another Perl Hacker")
 
 Support for iOS, watchOS, and tvOS is planned and will be added when a working cross-compilation method for Perl is found.
 
-Additionally, the API will be cleaned up slightly more before first release, by adding subscripts, automatically running `initialize()`, reworking the `add` parameter, etc.
+Additionally, the API will be cleaned up slightly more before first release, by adding subscripts to `PerlInterpreter`, automatically running `initialize()`, reworking the `add` parameter, etc.
 
 
 ## Acknowledgements
 
-Based on [swift-perl](https://github.com/dankogai/swift-perl) by Dan Kogai.
+Based on [Dan Kogai’s blog post about Perl in Swift](https://qiita.com/dankogai/items/d63dfda25088165deed5).
 

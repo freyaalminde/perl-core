@@ -7,10 +7,10 @@ final class PerlCoreTests: XCTestCase {
 
   func testEvaluation() {
     let interpreter = PerlInterpreter()
-    interpreter.scalarValue("greeting", true)!.asString = "Hello, "
-    let script = "$greeting . reverse q(rekcaH lreP rehtonA tsuJ)"
+    interpreter.`$`("prefix", true)!.asString = "Just "
+    let script = "$prefix . reverse q(rekcaH lreP rehtonA)"
     let result = interpreter.evaluateScript(script)
-    XCTAssertEqual(result.asString, "Hello, Just Another Perl Hacker")
+    XCTAssertEqual(result.asString, "Just Another Perl Hacker")
   }
 
   func run(_ script: String) {

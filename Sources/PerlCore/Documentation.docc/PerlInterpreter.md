@@ -5,10 +5,10 @@
 ```swift
 PerlInterpreter.initialize()
 let interpreter = PerlInterpreter()
-interpreter.scalarValue("greeting", true)!.asString = "Hello, "
-let script = "$greeting . reverse q(rekcaH lreP rehtonA tsuJ)"
+interpreter.`$`("prefix", true)!.asString = "Just "
+let script = "$prefix . reverse q(rekcaH lreP rehtonA)"
 let result = interpreter.evaluateScript(script)
-assert(result.asString == "Hello, Just Another Perl Hacker")
+assert(result.asString == "Just Another Perl Hacker")
 ```
 
 ## Topics
