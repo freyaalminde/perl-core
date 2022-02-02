@@ -4,22 +4,26 @@ import PackageDescription
 let package = Package(
   name: "perl-core",
   platforms: [
+    // TODO: actually test on macOS <12
     .macOS(.v10_10),
-//    .iOS(.v9),
-//    .tvOS(.v9),
+    // TODO: add support for oter OSes
+    //.iOS(.v9),
+    //.tvOS(.v9),
+    //.watchOS(.v7),
   ],
   products: [
     .library(name: "PerlCore", targets: ["PerlCore"]),
   ],
   targets: [
-    .systemLibrary(name: "CPerlCore"),
     .target(
-      name: "PerlCore",
-      dependencies: ["CPerlCore"],
+      name: "CPerlCore",
+      cSettings: [
+        .unsafeFlags(["-w"]),
+      ],
       linkerSettings: [
         .unsafeFlags([
-          // "-I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Perl/5.30/darwin-thread-multi-2level/CORE",
-          // "-I/System/Library/Perl/5.30/darwin-thread-multi-2level/CORE",
+          //"-I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Perl/5.30/darwin-thread-multi-2level/CORE",
+          //"-I/System/Library/Perl/5.30/darwin-thread-multi-2level/CORE",
           "-L/System/Library/Perl/5.30/darwin-thread-multi-2level/CORE",
           "-arch x86_64",
           "-arch i386",
@@ -33,6 +37,7 @@ let package = Package(
         .linkedLibrary("perl")
       ]
     ),
+    .target(name: "PerlCore", dependencies: ["CPerlCore"]),
     .testTarget(name: "PerlCoreTests", dependencies: ["PerlCore"]),
   ]
 )

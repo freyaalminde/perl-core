@@ -1,10 +1,26 @@
 # ``PerlCore/PerlInterpreter``
 
+### Example Usage
+
+```swift
+PerlInterpreter.initialize()
+let interpreter = PerlInterpreter()
+interpreter.scalarValue("greeting", true)!.asString = "Hello, "
+let script = "$greeting . reverse q(rekcaH lreP rehtonA tsuJ)"
+let result = interpreter.evaluateScript(script)
+assert(result.asString == "Hello, Just Another Perl Hacker")
+```
+
 ## Topics
 
-### Creating Perl Contexts
+### Setting Up and Tearing Down the Perl Environment
 
-- ``PerlInterpreter/init(debug:)``
+- ``PerlInterpreter/initialize()``
+- ``PerlInterpreter/deinitialize()``
+
+### Creating Perl Interpreters
+
+- ``PerlInterpreter/init()``
 
 ### Evaluating Scripts
 
@@ -15,7 +31,14 @@
 - ``PerlInterpreter/evaluationSucceeded``
 - ``PerlInterpreter/exception``
 
-### Setting Up and Tearing Down the Perl Environment
+### Accessing Values in Perl Global State
 
-- ``PerlInterpreter/initialize()``
-- ``PerlInterpreter/deinitialize()``
+- ``PerlInterpreter/$(_:_:)``
+- ``PerlInterpreter/scalarValue(_:_:)``
+- ``PerlInterpreter/arrayValue(_:_:)``
+- ``PerlInterpreter/hashValue(_:_:)``
+
+### Using Perl Modules
+
+- ``PerlInterpreter/use(_:)``
+- ``PerlInterpreter/use(_:_:)``
