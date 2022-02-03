@@ -3,9 +3,8 @@
 ### Example Usage
 
 ```swift
-PerlInterpreter.initialize()
-let interpreter = PerlInterpreter()
-interpreter.`$`("prefix", true)!.asString = "Just "
+let interpreter = PerlInterpreter.shared
+interpreter["prefix"]!.asString = "Just "
 let script = "$prefix . reverse q(rekcaH lreP rehtonA)"
 let result = interpreter.evaluateScript(script)
 assert(result.asString == "Just Another Perl Hacker")
@@ -13,18 +12,14 @@ assert(result.asString == "Just Another Perl Hacker")
 
 ## Topics
 
-### Setting Up and Tearing Down the Perl Environment
+### Accessing the Shared Perl Interpreter
 
-- ``PerlInterpreter/initialize()``
-- ``PerlInterpreter/deinitialize()``
-
-### Creating Perl Interpreters
-
-- ``PerlInterpreter/init()``
+- ``PerlInterpreter/shared``
 
 ### Evaluating Scripts
 
 - ``PerlInterpreter/evaluateScript(_:)``
+- ``PerlInterpreter/preamble``
 
 ### Working with Perl Global State
 
@@ -33,12 +28,16 @@ assert(result.asString == "Just Another Perl Hacker")
 
 ### Accessing Values in Perl Global State
 
-- ``PerlInterpreter/$(_:_:)``
-- ``PerlInterpreter/scalarValue(_:_:)``
-- ``PerlInterpreter/arrayValue(_:_:)``
-- ``PerlInterpreter/hashValue(_:_:)``
+- ``PerlInterpreter/subscript(_:_:)``
+- ``PerlInterpreter/subscript(array:_:)``
+- ``PerlInterpreter/subscript(hash:_:)``
 
 ### Using Perl Modules
 
 - ``PerlInterpreter/use(_:)``
 - ``PerlInterpreter/use(_:_:)``
+
+### Setting Up and Tearing Down the Perl Environment
+
+- ``PerlInterpreter/initialize()``
+- ``PerlInterpreter/deinitialize()``

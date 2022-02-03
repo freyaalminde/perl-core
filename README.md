@@ -24,9 +24,8 @@ Online documentation is available at [freyaariel.github.io/documentation/perlcor
 The PerlCore framework provides the ability to evaluate Perl code from within Swift-based apps. You can also use PerlCore to insert custom objects into the Perl environment.
 
 ```swift
-PerlInterpreter.initialize()
-let interpreter = PerlInterpreter()
-interpreter.`$`("prefix", true)!.asString = "Just "
+let interpreter = PerlInterpreter.shared
+interpreter["prefix"]!.asString = "Just "
 let script = "$prefix . reverse q(rekcaH lreP rehtonA)"
 let result = interpreter.evaluateScript(script)
 assert(result.asString == "Just Another Perl Hacker")
@@ -37,7 +36,9 @@ assert(result.asString == "Just Another Perl Hacker")
 
 Support for iOS, watchOS, and tvOS is planned and will be added when a working cross-compilation method for Perl is found.
 
-Additionally, the API will be cleaned up slightly more before first release, by adding subscripts to `PerlInterpreter`, automatically running `initialize()`, reworking the `add` parameter, etc.
+Additionally, the ability to create multiple interpreters may be added, and `PerlInterpreter.shared` removed.
+
+Unsafe flags should be removed so the package can be depended on by version tag.
 
 
 ## Acknowledgements

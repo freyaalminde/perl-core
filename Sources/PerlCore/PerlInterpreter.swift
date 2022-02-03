@@ -5,30 +5,25 @@ import CPerlCore
 /// You create and use Perl interpreters to evaluate Perl scripts from Swift code, to access values that Perl defines or calculates, and to make native objects accessible to Perl.
 @available(macOS 10.10, *)
 public class PerlInterpreter {
+  /// The shared Perl interpreter.
+  public static let shared = PerlInterpreter()
+  
+  /// Preamble to evaluate before all scripts.
+  public let preamble = "use v5.30; no strict; "
+
   var _perl: UnsafeMutableRawPointer!
   
   /// Initializes a new Perl interpreter.
   /// - returns: A new Perl interpreter.
-  public init() {
-    _perl = perlcore_init()
-  }
+  init() { Self.initialize(); _perl = perlcore_init() }
   
-  deinit {
-    perlcore_deinit()
-  }
-  
-  // TODO: find out why/when this is needed
-  func reinit() {
-    perlcore_deinit(); perlcore_init()
-  }
+  deinit { perlcore_deinit() }
   
   /// Initializes the Perl environment.
   public class func initialize() { perlcore_sys_init() }
   
   /// Deinitializes the Perl environment.
   public class func deinitialize() { perlcore_sys_term() }
-  
-  var preamble = "use v5.30; no strict;"
   
   /// Executes the specified Perl code.
   /// - parameters:
@@ -42,15 +37,26 @@ public class PerlInterpreter {
   }
   
   /// Whether the latest evaluation succeeded.
-  public var evaluationSucceeded: Bool {
-    perlcore_err() == 0
-  }
+  public var evaluationSucceeded: Bool { perlcore_err() == 0 }
   
   /// A Perl exception thrown in evaluation of the script.
   ///
   /// PerlCore assigns any uncaught exception to this property, so you can check this property’s value to find uncaught exceptions arising from Perl function calls.
-  public var exception: String {
-    String(validatingUTF8: perlcore_errstr())!
+  public var exception: String { String(validatingUTF8: perlcore_errstr())! }
+  
+  /// Accesses the specified scalar value.
+  public subscript(_ name: String, add: Bool = true) -> PerlScalarValue? {
+    name.withCString { perlcore_get_sv($0, add ? 1 : 0) }.map { .init($0) }
+  }
+  
+  /// Accesses the specified array value.
+  public subscript(array name: String, _ add: Bool = true) -> PerlArrayValue? {
+    name.withCString { perlcore_get_av($0, add ? 1 : 0) }.map { .init($0) }
+  }
+  
+  /// Accesses the specified hash value.
+  public subscript(hash name: String, _ add: Bool = true) -> PerlHashValue? {
+    name.withCString { perlcore_get_hv($0, add ? 1 : 0) }.map { .init($0) }
   }
   
   /// Imports semantics from the specified Perl module.
@@ -65,28 +71,5 @@ public class PerlInterpreter {
   @discardableResult
   public func use<T>(_ name: String, _ args: T...) -> PerlScalarValue {
     use(name + " " + args.map{ "'\($0)'" }.joined(separator: ","))
-  }
-  
-  /// Accesses the specified scalar value.
-  public func `$`(_ name: String, _ add: Bool = false) -> PerlScalarValue? {
-    scalarValue(name, add)
-  }
-  
-  /// Accesses the specified scalar value.
-  public func scalarValue(_ name: String, _ add: Bool = false) -> PerlScalarValue? {
-    let value = name.withCString { perlcore_get_sv($0, add ? 1 : 0) }
-    return value == nil ? nil : PerlScalarValue(value!)
-  }
-  
-  /// Accesses the specified array value.
-  public func arrayValue(_ name: String, _ add: Bool = false) -> PerlArrayValue? {
-    let value = name.withCString { perlcore_get_av($0, add ? 1 : 0) }
-    return value == nil ? nil : PerlArrayValue(value!)
-  }
-  
-  /// Accesses the specified hash value.
-  public func hashValue(_ name: String, _ add: Bool = false) -> PerlHashValue? {
-    let value = name.withCString { perlcore_get_hv($0, add ? 1 : 0) }
-    return value == nil ? nil : PerlHashValue(value!)
   }
 }
