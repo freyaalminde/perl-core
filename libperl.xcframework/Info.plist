@@ -24,7 +24,7 @@
 			<key>HeadersPath</key>
 			<string>Headers</string>
 			<key>LibraryIdentifier</key>
-			<string>watchos-x86_64-simulator</string>
+			<string>macos-x86_64</string>
 			<key>LibraryPath</key>
 			<string>libperl.a</string>
 			<key>SupportedArchitectures</key>
@@ -32,9 +32,7 @@
 				<string>x86_64</string>
 			</array>
 			<key>SupportedPlatform</key>
-			<string>watchos</string>
-			<key>SupportedPlatformVariant</key>
-			<string>simulator</string>
+			<string>macos</string>
 		</dict>
 		<dict>
 			<key>HeadersPath</key>
@@ -55,7 +53,7 @@
 			<key>HeadersPath</key>
 			<string>Headers</string>
 			<key>LibraryIdentifier</key>
-			<string>macos-x86_64</string>
+			<string>watchos-x86_64-simulator</string>
 			<key>LibraryPath</key>
 			<string>libperl.a</string>
 			<key>SupportedArchitectures</key>
@@ -63,7 +61,9 @@
 				<string>x86_64</string>
 			</array>
 			<key>SupportedPlatform</key>
-			<string>macos</string>
+			<string>watchos</string>
+			<key>SupportedPlatformVariant</key>
+			<string>simulator</string>
 		</dict>
 		<dict>
 			<key>HeadersPath</key>

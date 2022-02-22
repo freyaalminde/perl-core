@@ -122,7 +122,7 @@ final class PerlCoreTests: XCTestCase {
     try! perl.use("warnings")
     try! perl.use("utf8")
     // try! perl.use("Encode")
-    try! perl.use("Text::Wrap")
+    try! perl.use("Text::Wrap") 
 
 //    try! perl.use("Scalar::Util", "dualvar")
 //    let dualvar = perl.evaluateScript("dualvar 42, q(The Answer)")

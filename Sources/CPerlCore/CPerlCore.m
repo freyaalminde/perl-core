@@ -19,7 +19,7 @@ EXTERN_C void xs_init(pTHX) {
   dXSUB_SYS;
   
   /* DynaLoader is a special case */
-  newXS("DynaLoader::boot_DynaLoader", boot_DynaLoader, file);
+//  newXS("DynaLoader::boot_DynaLoader", boot_DynaLoader, file);
 }
 
 // TODO: allow multiple interpreters
