@@ -3,7 +3,7 @@ import CPerlCore
 /// A Perl scalar value.
 ///
 /// You use the `PerlScalarValue` class to convert basic values, such as numbers and strings, between Perl and Swift representations to pass data between native code and Perl code.
-@available(macOS 10.10, *)
+@available(macOS 10.10, iOS 9, tvOS 9, watchOS 7, *)
 public class PerlScalarValue: CustomStringConvertible {
   let sv: UnsafeMutableRawPointer
   init (_ sv: UnsafeMutableRawPointer) { self.sv = sv }

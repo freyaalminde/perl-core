@@ -1,7 +1,7 @@
 import CPerlCore
 
 /// A Perl hash value.
-@available(macOS 10.10, *)
+@available(macOS 10.10, iOS 9, tvOS 9, watchOS 7, *)
 public class PerlHashValue: CustomStringConvertible {
   let hv: UnsafeMutableRawPointer
   init (_ hv: UnsafeMutableRawPointer) { self.hv = hv }

@@ -1,15 +1,12 @@
 import CPerlCore
 import Foundation
 
-struct PerlError: Error, CustomStringConvertible {
-  var errorDescription: String
-  var description: String { errorDescription }
-}
+// TODO: consider adding more `throws`
 
 /// A Perl execution environment.
 ///
 /// You create and use Perl interpreters to evaluate Perl scripts from Swift code, to access values that Perl defines or calculates, and to make native objects accessible to Perl.
-@available(macOS 10.10, *)
+@available(macOS 10.10, iOS 9, tvOS 9, watchOS 7, *)
 public class PerlInterpreter {
   /// The shared Perl interpreter.
   public static let shared = PerlInterpreter()
@@ -80,4 +77,9 @@ public class PerlInterpreter {
   public func use<T>(_ name: String, _ args: T...) throws -> PerlScalarValue {
     try use(name + " " + args.map{ "'\($0)'" }.joined(separator: ","))
   }
+}
+
+struct PerlError: Error, CustomStringConvertible {
+  var errorDescription: String
+  var description: String { errorDescription }
 }
