@@ -28,7 +28,7 @@ static PerlInterpreter *my_perl = NULL;
 void perlcore_sys_init() {
   NSString *resourcePath = [[NSBundle bundleForClass:BundleFinder.class] resourcePath];
   NSString *bundlePath = [resourcePath stringByAppendingPathComponent:bundleName];
-  NSString *modulesPath = [bundlePath stringByAppendingPathComponent:@"modules"];
+  NSString *modulesPath = [bundlePath stringByAppendingPathComponent:@"Contents/Resources/modules"];
   setenv("PERLLIB", [modulesPath cStringUsingEncoding:NSUTF8StringEncoding], true);
   
   int    noc = 0;
