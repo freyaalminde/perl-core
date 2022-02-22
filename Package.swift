@@ -8,7 +8,7 @@ let package = Package(
     .macOS(.v10_10),
     // TODO: add support for other OSes
     .iOS(.v9),
-    // .tvOS(.v9),
+    .tvOS(.v9),
     .watchOS(.v7),
   ],
   products: [
