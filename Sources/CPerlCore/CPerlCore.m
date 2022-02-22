@@ -10,7 +10,10 @@ static NSString *bundleName = @"perl-core_CPerlCore.bundle";
 
 #define PERL_DARWIN 1
 #include <EXTERN.h>
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wcompound-token-split-by-macro"
 #include <perl.h>
+#pragma clang diagnostic pop
 
 EXTERN_C void xs_init (pTHX);
 EXTERN_C void boot_DynaLoader (pTHX_ CV* cv);

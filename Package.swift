@@ -14,17 +14,7 @@ let package = Package(
   ],
   targets: [
     .binaryTarget(name: "libperl", path: "libperl.xcframework"),
-    .target(
-      name: "CPerlCore",
-      dependencies: ["libperl"],
-      resources: [.copy("modules")],
-      cSettings: [.unsafeFlags(["-w"])]
-//      linkerSettings: [
-////         .unsafeFlags(["-L/System/Library/Perl/5.30/darwin-thread-multi-2level/CORE"]),
-//        .unsafeFlags(["-L/tmp/crossperl/perl-5.30.3"]),
-//        .linkedLibrary("perl")
-//      ]
-    ),
+    .target(name: "CPerlCore", dependencies: ["libperl"], resources: [.copy("modules")]),
     .target(name: "PerlCore", dependencies: ["CPerlCore"]),
     .testTarget(name: "PerlCoreTests", dependencies: ["PerlCore"]),
   ]

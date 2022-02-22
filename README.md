@@ -36,11 +36,9 @@ assert(result.asString == "Just Another Perl Hacker")
 
 The ability to create multiple interpreters may be added, and `PerlInterpreter.shared` removed. This requires building Perl with `-Dusemultiplicity`.
 
-Unsafe flags should be removed so the package can be depended on by version tag.
-
 To better support the App Store guidelines, all modules should ideally be embedded in the binary.
 
-A full build script for building Perl for every platform should be added.
+A complete build script for building Perl for every platform should be added.
 
 _TODO: Make it clear which versions of Perl is included._
 
