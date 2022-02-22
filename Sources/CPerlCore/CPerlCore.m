@@ -28,8 +28,10 @@ static PerlInterpreter *my_perl = NULL;
 void perlcore_sys_init() {
   NSString *resourcePath = [[NSBundle bundleForClass:BundleFinder.class] resourcePath];
   NSString *bundlePath = [resourcePath stringByAppendingPathComponent:bundleName];
-  NSString *modulesPath = [bundlePath stringByAppendingPathComponent:@"Contents/Resources/modules"];
-  setenv("PERLLIB", [modulesPath cStringUsingEncoding:NSUTF8StringEncoding], true);
+  NSString *shortModulesPath = [bundlePath stringByAppendingPathComponent:@"modules"];
+  NSString *longModulesPath = [bundlePath stringByAppendingPathComponent:@"Contents/Resources/modules"];
+  NSString *modulesPaths = [@[shortModulesPath, longModulesPath] componentsJoinedByString:@":"];
+  setenv("PERLLIB", [modulesPaths cStringUsingEncoding:NSUTF8StringEncoding], true);
   
   int    noc = 0;
   char **nov = NULL;
