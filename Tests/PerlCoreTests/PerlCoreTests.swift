@@ -2,9 +2,6 @@ import XCTest
 import PerlCore
 
 final class PerlCoreTests: XCTestCase {
-//  override class func setUp() { PerlInterpreter.initialize() }
-//  override class func tearDown() { PerlInterpreter.deinitialize() }
-
   func testEvaluation() {
     let interpreter = PerlInterpreter.shared
     interpreter["prefix"]!.asString = "Just "
@@ -15,16 +12,17 @@ final class PerlCoreTests: XCTestCase {
 
   func run(_ script: String) {
     let perl = PerlInterpreter.shared
-    let result = perl.evaluateScript(script)
-    print("eval \"\(script)\" = \(result)")
-    if !perl.evaluationSucceeded {
-      print(" err:   \(perl.exception)")
-    } else {
-      print("  !!:   \(result.asBool)")
-      print("  int:  \(result.asInt)")
-      print("  +0.0: \(result.asDouble)")
-      print("  q{}.: \(result.asString)")
-    }
+    XCTAssertNoThrow(perl.evaluateScript(script))
+    //let result = perl.evaluateScript(script)
+    // print("eval \"\(script)\" = \(result)")
+    // if !perl.evaluationSucceeded {
+    //   print(" err:   \(perl.exception)")
+    // } else {
+    //   print("  !!:   \(result.asBool)")
+    //   print("  int:  \(result.asInt)")
+    //   print("  +0.0: \(result.asDouble)")
+    //   print("  q{}.: \(result.asString)")
+    // }
   }
 
   func testMultipleEvaluations() throws {
@@ -40,56 +38,95 @@ final class PerlCoreTests: XCTestCase {
     let perl = PerlInterpreter.shared
 
     perl.evaluateScript("our $swift = q(0.0 but rocks)")
-    print(perl["swift"] as Any)
-    print(perl["swift"]?.asBool as Any)
-    print(perl["swift"]?.asDouble as Any)
-    print(perl["objC"] as Any)
-    // scalar
+    // print(perl["swift"] as Any)
+    // print(perl["swift"]?.asBool as Any)
+    XCTAssertEqual(perl["swift"]!.asBool, true)
+    // print(perl["swift"]?.asDouble as Any)
+    XCTAssertEqual(perl["swift"]!.asDouble, 0.0)
+    // print(perl["objC"] as Any)
+  }
+  
+  func testScalarValues() {
+    let perl = PerlInterpreter.shared
+
     perl.evaluateScript("our $scalar")
     let scalar = perl["scalar"]!
-    print(scalar.isDefined)
+    // print(scalar.isDefined)
+    // XCTAssertEqual(scalar.isDefined, false)
     scalar.asBool = !scalar.asBool
-    perl.evaluateScript("say $scalar")
+    // perl.evaluateScript("say $scalar")
+    XCTAssertEqual(perl.evaluateScript("$scalar").asInt, 1)
     scalar.asInt *= 42
-    perl.evaluateScript("say $scalar")
+    // perl.evaluateScript("say $scalar")
+    XCTAssertEqual(perl.evaluateScript("$scalar").asInt, 42)
     scalar.asDouble += 0.195
-    perl.evaluateScript("say $scalar")
+    // perl.evaluateScript("say $scalar")
+    XCTAssertEqual(perl.evaluateScript("$scalar").asDouble, 42.195)
     scalar.asString += "km"
-    perl.evaluateScript("say $scalar")
+    // perl.evaluateScript("say $scalar")
+    XCTAssertEqual(perl.evaluateScript("$scalar").asString, "42.195km")
     scalar.undefine()
-    perl.evaluateScript("say $scalar")
-    // array
+    // perl.evaluateScript("say $scalar")
+    XCTAssertEqual(scalar.isDefined, false)
+  }
+
+  func testArrayVaues() {
+    let perl = PerlInterpreter.shared
+
     perl.evaluateScript("our @array")
     let array = perl[array: "array"]!
-    array[0].asInt = 0
-    array[3].asInt = 3
-    print(perl[array: "array"] as Any)
-    print(array.delete(0) as Any)
-    print(perl[array: "array"] as Any)
-    // hash
+    array[0].asInt = 1
+    array[3].asInt = 4
+    XCTAssertEqual(perl[array: "array"]![0].asInt, 1)
+    XCTAssertEqual(perl[array: "array"]![3].asInt, 4)
+    _ = array.delete(0)
+    XCTAssertEqual(perl[array: "array"]![0].asInt, 0)
+    XCTAssertEqual(perl[array: "array"]![3].asInt, 4)
+  }
+
+  func testHashValues() {
+    let perl = PerlInterpreter.shared
+
     perl.evaluateScript("our %hash")
     let hash = perl[hash: "hash"]!
     hash["zero"].asInt = 0
     hash["one"].asInt = 1
-    print(perl[hash: "hash"] as Any)
-    print(hash.delete("one") as Any)
-    print(perl[hash: "hash"] as Any)
-    /// reference
+    XCTAssertEqual(perl[hash: "hash"]!.toDictionary().keys.count, 2)
+    _ = hash.delete("one")
+    XCTAssertEqual(perl[hash: "hash"]!.toDictionary().keys.count, 1)
+  }
+  
+  func testReferences() {
+    let perl = PerlInterpreter.shared
+
     perl.evaluateScript("our $ref = 0")
-    print(perl["ref"]!.refType)
+    // print(perl["ref"]!.refType)
     perl.evaluateScript("$ref = \\0")
-    print(perl["ref"]!.refType)
-    print(perl["ref"]!.derefScalar() as Any)
+    XCTAssertEqual(perl["ref"]!.refType, "SCALAR")
+    // print(perl["ref"]!.refType)
+    // print(perl["ref"]!.derefScalar() as Any)
     perl.evaluateScript("$ref = [0]")
-    print(perl["ref"]!.refType)
-    print(perl["ref"]!.derefArray() as Any)
+    XCTAssertEqual(perl["ref"]!.refType, "ARRAY")
+    // print(perl["ref"]!.refType)
+    // print(perl["ref"]!.derefArray() as Any)
     perl.evaluateScript("$ref = {zero=>0}")
-    print(perl["ref"]!.refType)
-    print(perl["ref"]!.derefHash() as Any)
-    /// use
-    //pl.use("Scalar::Util", "dualvar")
-    let dv = perl.evaluateScript("dualvar 42, q(The Answer)")
-    print(dv.asInt)
-    print(dv.asString)
+    XCTAssertEqual(perl["ref"]!.refType, "HASH")
+    // print(perl["ref"]!.refType)
+    // print(perl["ref"]!.derefHash() as Any)
+  }
+  
+  func testUse() {
+    let perl = PerlInterpreter.shared
+
+    try! perl.use("strict")
+    try! perl.use("warnings")
+    try! perl.use("utf8")
+    
+//    try! perl.use("Scalar::Util", "dualvar")
+//    let dualvar = perl.evaluateScript("dualvar 42, q(The Answer)")
+//    // print(dualvar.asInt)
+//    // print(dualvar.asString)
+//    XCTAssertEqual(dualvar.asInt, 42)
+//    XCTAssertEqual(dualvar.asString, "The Answer")
   }
 }
