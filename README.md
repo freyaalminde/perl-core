@@ -34,14 +34,20 @@ assert(result.asString == "Just Another Perl Hacker")
 
 ## Roadmap
 
-Support for iOS, watchOS, and tvOS is planned and will be added when a working cross-compilation method for Perl is found.
-
-Additionally, the ability to create multiple interpreters may be added, and `PerlInterpreter.shared` removed.
+The ability to create multiple interpreters may be added, and `PerlInterpreter.shared` removed. This requires building Perl with `-Dusemultiplicity`.
 
 Unsafe flags should be removed so the package can be depended on by version tag.
+
+To better support the App Store guidelines, all modules should ideally be embedded in the binary.
+
+A full build script for building Perl for every platform should be added.
+
+_TODO: Make it clear which versions of Perl is included._
 
 
 ## Acknowledgements
 
 Based on [Dan Kogai’s blog post about Perl in Swift](https://qiita.com/dankogai/items/d63dfda25088165deed5).
+
+Uses [`perl-cross` by Alex Suykov](https://github.com/arsv/perl-cross) for cross-compiling Perl.
 
