@@ -31,6 +31,7 @@ void perlcore_sys_init() {
   NSString *shortModulesPath = [bundlePath stringByAppendingPathComponent:@"modules"];
   NSString *longModulesPath = [bundlePath stringByAppendingPathComponent:@"Contents/Resources/modules"];
   NSString *modulesPaths = [@[shortModulesPath, longModulesPath] componentsJoinedByString:@":"];
+  // TODO: try to find a better way to set the `@INC` so we don’t have the `/dev/null` paths in there
   setenv("PERLLIB", [modulesPaths cStringUsingEncoding:NSUTF8StringEncoding], true);
   
   int    noc = 0;
