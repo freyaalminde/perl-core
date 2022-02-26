@@ -4,6 +4,7 @@
 
 # brew install gnu-sed binutils
 
+# make sure `sed` is GNU sed
 export PATH=/usr/local/Cellar/gnu-sed/4.8/libexec/gnubin:/usr/local/Cellar/binutils/2.37/bin:$PATH
 
 # TODO: patch perl:

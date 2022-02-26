@@ -6,7 +6,7 @@ Evaluate Perl code from within an app, and support Perl scripting of your app.
 ## Installation
 
 ```swift
-.package(url: "https://github.com/freyaariel/perl-core.git", branch: "main")
+.package(url: "https://github.com/freyaariel/perl-core.git", from: "0.1.0")
 ```
 
 ```swift
@@ -31,16 +31,16 @@ let result = interpreter.evaluateScript(script)
 assert(result.asString == "Just Another Perl Hacker")
 ```
 
+PerlCore 0.1.0 includes Perl 5.30.3.
+
 
 ## Roadmap
 
 The ability to create multiple interpreters may be added, and `PerlInterpreter.shared` removed. This requires building Perl with `-Dusemultiplicity`.
 
-To better support the App Store guidelines, all modules should ideally be embedded in the binary.
+To better support the App Store guidelines, all modules should ideally be embedded in the binary. In this case, to avoid bloat, a script for customizing the Perl distribution may be added. 
 
 A complete build script for building Perl for every platform should be added.
-
-_TODO: Make it clear which versions of Perl is included._
 
 
 ## Acknowledgements
