@@ -38,12 +38,8 @@ final class PerlCoreTests: XCTestCase {
     let perl = PerlInterpreter.shared
 
     perl.evaluateScript("our $swift = q(0.0 but rocks)")
-    // print(perl["swift"] as Any)
-    // print(perl["swift"]?.asBool as Any)
     XCTAssertEqual(perl["swift"]!.asBool, true)
-    // print(perl["swift"]?.asDouble as Any)
     XCTAssertEqual(perl["swift"]!.asDouble, 0.0)
-    // print(perl["objC"] as Any)
   }
   
   func testScalarValues() {
@@ -54,23 +50,18 @@ final class PerlCoreTests: XCTestCase {
     // print(scalar.isDefined)
     // XCTAssertEqual(scalar.isDefined, false)
     scalar.asBool = !scalar.asBool
-    // perl.evaluateScript("say $scalar")
     XCTAssertEqual(perl.evaluateScript("$scalar").asInt, 1)
     scalar.asInt *= 42
-    // perl.evaluateScript("say $scalar")
     XCTAssertEqual(perl.evaluateScript("$scalar").asInt, 42)
     scalar.asDouble += 0.195
-    // perl.evaluateScript("say $scalar")
     XCTAssertEqual(perl.evaluateScript("$scalar").asDouble, 42.195)
     scalar.asString += "km"
-    // perl.evaluateScript("say $scalar")
     XCTAssertEqual(perl.evaluateScript("$scalar").asString, "42.195km")
     scalar.undefine()
-    // perl.evaluateScript("say $scalar")
     XCTAssertEqual(scalar.isDefined, false)
   }
 
-  func testArrayVaues() {
+  func testArrayValues() {
     let perl = PerlInterpreter.shared
 
     perl.evaluateScript("our @array")
@@ -100,22 +91,15 @@ final class PerlCoreTests: XCTestCase {
     let perl = PerlInterpreter.shared
 
     perl.evaluateScript("our $ref = 0")
-    // print(perl["ref"]!.refType)
     perl.evaluateScript("$ref = \\0")
     XCTAssertEqual(perl["ref"]!.refType, "SCALAR")
-    // print(perl["ref"]!.refType)
-    // print(perl["ref"]!.derefScalar() as Any)
     perl.evaluateScript("$ref = [0]")
     XCTAssertEqual(perl["ref"]!.refType, "ARRAY")
-    // print(perl["ref"]!.refType)
-    // print(perl["ref"]!.derefArray() as Any)
     perl.evaluateScript("$ref = {zero=>0}")
     XCTAssertEqual(perl["ref"]!.refType, "HASH")
-    // print(perl["ref"]!.refType)
-    // print(perl["ref"]!.derefHash() as Any)
   }
   
-  func testUse() {
+  func testModules() {
     let perl = PerlInterpreter.shared
 
     try! perl.use("strict")
