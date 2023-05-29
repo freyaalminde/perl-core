@@ -2,6 +2,8 @@ import CPerlCore
 import Foundation
 
 // TODO: consider adding more `throws`
+// TODO: rename `PerlInterpreter` to `PerlContext`
+// TODO: rename `perl-core` to `perl-kit` (as to not be confused with the other Perl Core)
 
 /// A Perl execution environment.
 ///

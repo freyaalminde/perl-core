@@ -1,6 +1,8 @@
 #!/bin/sh
 
-# TODO: either recover hints file from old laptop or recreate it
+# TODO: at the end, run this in modules: fd -E '*.[pP][mlML]' -E '*.ucm' -E '*.t' -E '*.fnm' -E '*.utf' -E '*.enc' -E '*.json' -x rm
+
+# TODO: copy in build hints (`darwin`)
 
 PERL_VERSION=5.30.3
 PERL_CROSS_VERSION=1.3.7
