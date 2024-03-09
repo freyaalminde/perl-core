@@ -6,7 +6,7 @@ Evaluate Perl code from within an app, and support Perl scripting of your app.
 ## Installation
 
 ```swift
-.package(url: "https://github.com/freyaalminde/perl-core.git", from: "0.1.0")
+.package(url: "https://github.com/freysie/perl-core.git", from: "0.1.0")
 ```
 
 ```swift
@@ -16,7 +16,7 @@ import PerlCore
 
 ## Documentation
 
-Online documentation is available at [freyaalminde.github.io/documentation/perlcore](https://freyaalminde.github.io/documentation/perlcore/).
+Online documentation is available at [freysie.github.io/documentation/perlcore](https://freysie.github.io/documentation/perlcore/).
 
 
 ## Overview
